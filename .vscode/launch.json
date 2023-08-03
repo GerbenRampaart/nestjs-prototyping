@@ -13,7 +13,8 @@
             ],
             "runtimeExecutable": "npm",
             "runtimeArgs": ["run-script", "start:debug"],
-            "outputCapture": "std"
+            "outputCapture": "std",
+            
         }
     ]
 }

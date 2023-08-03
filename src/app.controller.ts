@@ -8,8 +8,13 @@ export class AppController {
     private readonly appService: AppService,
     private readonly p: PostService) {}
 
-  @Get('hello')
-  async getHello(): Promise<any> {
+  @Get('error')
+  async throwError(): Promise<any> {
+    throw new Error();
+  }
+
+  @Get('posts')
+  async getPosts(): Promise<any> {
     const dt = new Date();
     await this.p.createPost({
       data: {
@@ -32,8 +37,6 @@ export class AppController {
       }
     });
 
-    return await this.p.getPosts({
-
-    })
+    return await this.p.getPosts({});
   }
 }

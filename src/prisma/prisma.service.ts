@@ -3,12 +3,11 @@ import { Prisma, PrismaClient } from '../prisma-schema/_generated/client/index';
 import { AppLoggerService } from '../logger/app-logger.service';
 
 @Injectable({
-    scope: Scope.DEFAULT // singleton
+    scope: Scope.REQUEST
 })
 export class PrismaService
     // https://github.com/prisma/prisma/issues/4746
-    extends PrismaClient<Prisma.PrismaClientOptions, Prisma.LogLevel>
-    implements OnModuleInit, OnModuleDestroy {
+    extends PrismaClient<Prisma.PrismaClientOptions, Prisma.LogLevel> {
 
     constructor(
         private readonly l: AppLoggerService
@@ -50,13 +49,5 @@ export class PrismaService
         this.$on('warn', (evt: Prisma.LogEvent) => {
             this.l.info(evt);
         });
-    }
-
-    async onModuleDestroy() {
-        await this.$disconnect();
-    }
-
-    async onModuleInit() {
-        await this.$connect();
     }
 }
